@@ -1,0 +1,28 @@
+---
+
+- name: Create Informix package directory
+  file: path={{ informix_package_dest }} state=directory
+
+- name: Copy informix package
+  copy: "src={{ informix_package_src }}/{{ informix_package_name }}
+        dest={{ informix_package_dest }}
+        mode=0755 force=no"
+  
+- name: Copy response file template
+  template:
+    src: "{{ informix_csdk_properties_template }}"
+    dest: "{{ informix_response_file }}"
+
+- name: Execute informix installer
+  command: "./installclientsdk -i silent -f {{ informix_response_file }}"
+  args:
+    chdir: "{{ informix_package_dest }}/{{ informix_package_name }}"
+    creates: "{{ informix_package_dest }}/lib"
+  register: install_result
+  failed_when: install_result.stderr is defined and install_result.stderr  != ""
+
+- name: Copy over sqlhosts.txt
+  copy:
+    src: "{{ informix_sqlhosts }}"
+    dest: "{{ informix_package_dest }}/etc/sqlhosts"
+    mode: 0766

@@ -1,0 +1,10 @@
+---
+informix_user: root
+
+informix_package_src: "/installers/informix"
+informix_package_dest: "/opt/informix"
+informix_package_name: "clientsdk.4.10.FC9DE.LINUX"
+
+informix_response_file: "{{ informix_package_dest }}/{{ informix_package_name }}/csdk.properties"
+
+informix_lib: "{{ informix_package_dest }}/lib"
