@@ -8,4 +8,6 @@ informix_package_name: "clientsdk.4.10.FC9DE.LINUX"
 informix_csdk_properties_template: "/src/templates/csdk.properties.j2"
 informix_response_file: "{{ informix_package_dest }}/{{ informix_package_name }}/csdk.properties"
 
+informix_sqlhosts_file: "/src/files/sqlhosts.txt"
+
 informix_lib: "{{ informix_package_dest }}/lib"

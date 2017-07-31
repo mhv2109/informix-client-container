@@ -23,6 +23,14 @@
 
 - name: Copy over sqlhosts.txt
   copy:
-    src: "{{ informix_sqlhosts }}"
+    src: "{{ informix_sqlhosts_file }}"
     dest: "{{ informix_package_dest }}/etc/sqlhosts"
     mode: 0766
+  when: informix_sqlhosts_file is defined
+
+- name: Copy over sqlhosts.txt template
+  template:
+    src: "{{ informix_sqlhosts_template }}"
+    dest: "{{ informix_package_dest }}/etc/sqlhosts"
+    mode: 0766
+  when: informix_sqlhosts_template is defied
